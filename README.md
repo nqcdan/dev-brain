@@ -1,6 +1,6 @@
-# of1-brain
+# dev-brain
 
-Nền tri thức & workspace AI-first cho OF1. Dev thao tác ở hai đầu (đặc tả & thẩm định),
+Nền tri thức & workspace AI-first. Dev thao tác ở hai đầu (đặc tả & thẩm định),
 AI lo khúc giữa (hiện thực). Nơi sinh ra và lưu artifact theo vòng đời công việc, tách khỏi
 code sản phẩm để truy vết và tái dùng.
 
@@ -31,7 +31,7 @@ brainstorming → spec → design → spec-review → implementation → review
 Map vào 4 thư mục: `brainstorms/` (brainstorming) · `openspec/` (spec) · `designs/`
 (design + spec-review) · `code/` (implementation + review).
 
-Chi tiết convention/workflow tham chiếu bộ `knowledge/` trong `of1-harness`.
+Chi tiết convention/workflow tham chiếu bộ `knowledge/` trong harness của từng dự án.
 
 ## OpenSpec — spec-driven cho pha spec
 
