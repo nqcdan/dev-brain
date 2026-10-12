@@ -1,63 +1,64 @@
 # dev-brain
 
-Nền tri thức & workspace AI-first. Dev thao tác ở hai đầu (đặc tả & thẩm định),
-AI lo khúc giữa (hiện thực). Nơi sinh ra và lưu artifact theo vòng đời công việc, tách khỏi
-code sản phẩm để truy vết và tái dùng.
+An AI-first knowledge base and workspace. Developers work at both ends (specification and
+verification), AI handles the middle (implementation). This is where artifacts are created and
+stored along the work lifecycle, kept separate from product code for traceability and reuse.
 
-## Cấu trúc
+## Structure
 
-| Thư mục | Vai trò |
+| Directory | Role |
 |---|---|
-| `brainstorms/` | Pha phân kỳ: vấn đề, hướng tiếp cận, giả định cần kiểm chứng (HMW → converge) |
-| `openspec/` | Spec: yêu cầu + acceptance + "Done khi (test list)" theo lối spec-driven |
-| `designs/` | Cách làm: boundary file/module, data model, API, task plan cho AI |
-| `code/` | Hiện thực & sản phẩm code AI sinh (hoặc link/submodule tới repo code) |
+| `brainstorms/` | Divergent phase: problems, approaches, assumptions to validate (HMW → converge) |
+| `openspec/` | Spec: requirements + acceptance + "Done when (test list)", spec-driven style |
+| `designs/` | How to build it: file/module boundaries, data model, API, task plan for AI |
+| `code/` | Implementation and AI-generated code (or links/submodules to code repos) |
 
-## Vòng đời workflow
+## Workflow lifecycle
 
 ```
 brainstorming → spec → design → spec-review → implementation → review
-   (người)     (người) (người)   (AI critic)     (AI code)       (dev)
-                          └──── cổng Ready-for-AI ────┘
+   (human)     (human) (human)   (AI critic)     (AI code)       (dev)
+                          └──── Ready-for-AI gate ────┘
 ```
 
-- **Người** làm 3 pha đầu (brainstorming/spec/design); **AI critic** soi spec+design
-  (`spec-review`) bắt mơ hồ/thiếu trước khi code; **AI** hiện thực (`implementation`);
-  **dev** review code AI (`review`) và giữ nút merge.
-- **Đối xứng review:** AI review *design của người* · dev review *code của AI*.
-- **Cổng Ready-for-AI:** spec+design chỉ giao AI khi hết TBD, acceptance/test-list đo được,
-  boundary file/module đã chốt.
+- **Humans** own the first three phases (brainstorming/spec/design); an **AI critic** inspects
+  spec + design (`spec-review`) to catch ambiguity and gaps before coding; **AI** implements
+  (`implementation`); a **dev** reviews the AI's code (`review`) and holds the merge button.
+- **Review symmetry:** AI reviews the *human's design* · dev reviews the *AI's code*.
+- **Ready-for-AI gate:** spec + design are handed to AI only when there are no TBDs left,
+  acceptance criteria / test list are measurable, and file/module boundaries are settled.
 
-Map vào 4 thư mục: `brainstorms/` (brainstorming) · `openspec/` (spec) · `designs/`
-(design + spec-review) · `code/` (implementation + review).
+Mapping to the four directories: `brainstorms/` (brainstorming) · `openspec/` (spec) ·
+`designs/` (design + spec-review) · `code/` (implementation + review).
 
-Chi tiết convention/workflow tham chiếu bộ `knowledge/` trong harness của từng dự án.
+For detailed conventions and workflow, see the `knowledge/` set in each project's harness.
 
-## OpenSpec — spec-driven cho pha spec
+## OpenSpec — spec-driven for the spec phase
 
-Pha `spec` (thư mục `openspec/`) chạy theo **OpenSpec** — framework spec-driven cho AI
-coding assistant: https://github.com/Fission-AI/openspec
+The `spec` phase (`openspec/` directory) runs on **OpenSpec**, a spec-driven framework for AI
+coding assistants: https://github.com/Fission-AI/openspec
 
-Bộ tích hợp Claude Code của OpenSpec đã **vendored sẵn** trong repo này (không cần cài gì
-để đọc), tại `.claude/`:
+OpenSpec's Claude Code integration is **vendored** in this repo (nothing to install just to
+read it), under `.claude/`:
 
-- `.claude/skills/openspec-*` — 6 skill: `explore` · `propose` · `apply` · `sync-specs` ·
+- `.claude/skills/openspec-*` — 6 skills: `explore` · `propose` · `apply` · `sync-specs` ·
   `update-change` · `archive-change`.
-- `.claude/commands/opsx/*` — 6 slash-command tương ứng: `/opsx:explore`, `/opsx:propose`,
+- `.claude/commands/opsx/*` — 6 matching slash commands: `/opsx:explore`, `/opsx:propose`,
   `/opsx:apply`, `/opsx:sync`, `/opsx:update`, `/opsx:archive`.
 
-### Cài CLI để kích hoạt
+### Install the CLI to activate
 
-Các skill gọi CLI `openspec` (`allowed-tools: Bash(openspec:*)`), nên muốn **chạy** cần cài CLI:
+The skills call the `openspec` CLI (`allowed-tools: Bash(openspec:*)`), so you need the CLI to
+**run** them:
 
 ```bash
-npm install -g @fission-ai/openspec@latest   # hoặc: brew install openspec
-openspec init --tools claude                 # tạo thư mục dữ liệu openspec/ (specs + changes)
+npm install -g @fission-ai/openspec@latest   # or: brew install openspec
+openspec init --tools claude                 # creates the openspec/ data dir (specs + changes)
 ```
 
-`openspec init` sinh lại `.claude/` (đã có sẵn đây) và tạo `openspec/` chứa `specs/` +
-`changes/`. Sau đó dùng vòng: `/opsx:explore` → `/opsx:propose "ý tưởng"` → `/opsx:apply`
-→ `/opsx:archive`.
+`openspec init` regenerates `.claude/` (already present here) and creates `openspec/` with
+`specs/` + `changes/`. Then follow the loop: `/opsx:explore` → `/opsx:propose "idea"` →
+`/opsx:apply` → `/opsx:archive`.
 
-> Repo chỉ vendored phần skill/command (để đọc + versioned). CLI là tooling máy-local,
-> KHÔNG commit vào repo.
+> The repo only vendors the skills/commands (readable + versioned). The CLI is machine-local
+> tooling and is NOT committed to the repo.
