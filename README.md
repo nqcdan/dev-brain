@@ -4,6 +4,19 @@ An AI-first knowledge base and workspace. Developers work at both ends (specific
 verification), AI handles the middle (implementation). This is where artifacts are created and
 stored along the work lifecycle, kept separate from product code for traceability and reuse.
 
+## Why this workspace
+
+When most code is written with AI, writing it is no longer the hard part. Keeping it
+understandable, consistent and reviewable is. These are the problems this repo addresses:
+
+| Problem | How dev-brain handles it |
+|---|---|
+| **Decisions are lost.** A few weeks later nobody remembers why something changed or what the original requirement was. | Every change leaves a trail: brainstorm → spec → design live next to each other, versioned in git, so the "why" sits beside the "what". |
+| **AI writes more code than humans can review.** One person cannot read every AI-generated PR line by line. | Review moves earlier. Humans review the spec and design, and an AI critic checks them before any code exists. Acceptance criteria and test lists make the code review a check against an agreed contract. |
+| **Inconsistent code.** Formatting, naming and design patterns drift between people and sessions. | Shared conventions and rules are written once and loaded by the AI for every task, so all code follows the same style. |
+| **Old and new patterns get mixed after a migration.** When a library or framework changes, AI keeps copying the old way it sees in the codebase. | Rules are updated when the migration happens, so the AI can tell the current pattern from the deprecated one. |
+| **Changes span multiple repos.** Upgrading a shared library or a core service ripples into the apps that depend on it. Doing it repo by repo is slow and easy to get wrong. | One spec and one design cover the whole change across repos, and implementation is planned from there, so no dependent repo is missed. |
+
 ## Structure
 
 | Directory | Role |
