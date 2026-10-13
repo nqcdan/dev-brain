@@ -1,7 +1,7 @@
 # Setup
 
 ## TODO (dev)
-- [ ] TODO 1 (repo-reference → buồng lái): AI đọc code thật 4 repo sản phẩm (`of1-platform`, `of1-crm`, `of1-core`, `webui-lib`) để grounding design/spec, VÀ sinh code thẳng vào repo đích — có guardrail. Scope đã làm rõ (interview):
+- [ ] TODO 1 (repo-reference → buồng lái): AI đọc code thật 4 repo sản phẩm (`of1-platform`, `of1-crm`, `of1-core`, `uikit`) để grounding design/spec, VÀ sinh code thẳng vào repo đích — có guardrail. Scope đã làm rõ (interview):
     - **Không** manifest/map tĩnh, **không** helper resolve. Chỉ khai "search surface" trong CLAUDE.md: 4 repo + vị trí sibling + `stack` + `entrypoints` (để khoanh vùng, grep-first tránh nổ token).
     - **Grounding:** AI tự grep/search 4 repo mỗi lần → định vị module → đọc → đặc tả bám hiện trạng. Ghi vị trí tìm được thành `refs:` (truy vết, sản phẩm phụ).
     - **Thực thi:** AI tạo nhánh `ai/<slug>` off `develop` trong repo đích, commit. **KHÔNG merge, KHÔNG push develop** — dừng, dev duyệt (guardrail nhánh-riêng).
