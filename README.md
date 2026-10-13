@@ -19,6 +19,8 @@ understandable, consistent and reviewable is. These are the problems this repo a
 
 ## Structure
 
+To connect your own project repos, see [SETUP.md](SETUP.md).
+
 | Directory | Role |
 |---|---|
 | `brainstorms/` | Divergent phase: problems, approaches, assumptions to validate (HMW → converge) |
